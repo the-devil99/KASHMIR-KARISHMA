@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="ember">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Devil's Kashmir — Elite Valley Expedition & Slow Travel</title>
+    <meta name="description" content="An elite alpine expedition engine through Kashmir's most guarded sanctuaries.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="progress-bar"></div>
+    <canvas id="fx-canvas"></canvas>
+    <div class="custom-cursor" id="custom-cursor"></div>
+
+    <!-- Top Utility Bar -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <span>🛡️ Elite Expedition Mode Active</span>
+            <span>📍 Srinagar Basecamp</span>
+        </div>
+        <div class="top-controls">
+            <button class="control-btn" onclick="toggleTheme()" id="theme-toggle">Theme: Ember</button>
+            <button class="control-btn" onclick="cycleCurrency()" id="currency-toggle">Currency: INR (₹)</button>
+        </div>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header>
+        <a href="#" class="logo">The Devil's <span>Kashmir</span></a>
+        <nav>
+            <a href="#destinations">Destinations</a>
+            <a href="#experiences">Experiences</a>
+            <a href="#itinerary">Itinerary</a>
+            <a href="#estimator">Estimator</a>
+            <a href="#food">Cuisine</a>
+            <a href="#seasons">Seasons</a>
+            <a href="#estimator" class="nav-cta">Build Expedition</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Shadows on the lake, <span>summits that test the bold</span></h1>
+        <p>Shikara rides at dawn, silent alpine passes by afternoon, and saffron tea by fireside. Experience the valley
+            through a refined, slow-travel lens.</p>
+        <div class="hero-actions">
+            <a href="#estimator" class="btn btn-primary">Configure expedition</a>
+            <a href="#destinations" class="btn btn-secondary">Explore destinations</a>
+        </div>
+        <div class="hero-strip">
+            <span>Shikara at sunrise</span>
+            <span>Gondola to Apharwat</span>
+            <span>Private Wazwan banquets</span>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations">
+        <div class="section-header">
+            <h2>Sanctuaries & Destinations</h2>
+            <p>Eight distinct geographies spanning mirrored water tables, imperial terraces, and jagged glacial passes.
+            </p>
+        </div>
+
+        <div class="controls-bar">
+            <div class="filter-tabs" id="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All Sanctuaries</button>
+                <button class="filter-tab" data-filter="Lakes">Lakes</button>
+                <button class="filter-tab" data-filter="Mountains">Mountains</button>
+                <button class="filter-tab" data-filter="Heritage">Heritage</button>
+            </div>
+            <div class="search-box">
+                <span>🔍</span>
+                <input type="text" id="search-input" placeholder="Search sanctuaries...">
+            </div>
+        </div>
+
+        <div class="destinations-grid" id="destinations-container">
+            <!-- Dynamically populated via CONFIG engine -->
+        </div>
+    </section>
+
+    <!-- Floating Itinerary Builder Drawer -->
+    <div class="itinerary-drawer" id="itinerary-drawer">
+        <div class="drawer-info">
+            <span>🎒 Custom Route: <strong id="selected-count">0</strong> Sanctuaries</span>
+            <span>Est. Duration: <strong id="selected-days">0 Days</strong></span>
+        </div>
+        <button class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.9rem;"
+            onclick="openCheckout()">Finalize & Estimate</button>
+    </div>
+
+    <!-- Interactive Destination Modal Dialog -->
+    <div class="modal-backdrop" id="destination-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modal-title">Sanctuary Title</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Experiences Section -->
+    <section id="experiences">
+        <div class="section-header">
+            <h2>Experiences</h2>
+            <p>Moments worth planning your days around.</p>
+        </div>
+        <div class="experiences-grid">
+            <div class="experience-box">
+                <h3>Shikara on Dal Lake</h3>
+                <p>Glide past floating gardens, lotus beds and lakeside markets in a wooden shikara, best experienced at
+                    first light.</p>
+            </div>
+            <div class="experience-box">
+                <h3>Houseboat Stays</h3>
+                <p>Sleep inside intricately carved cedar houseboats on the water, with traditional Kashmiri breakfast
+                    served fresh from shore.</p>
+            </div>
+            <div class="experience-box">
+                <h3>Meadow Trekking</h3>
+                <p>Traverse high-altitude trails through Betaab Valley, Baisaran near Pahalgam, or ridge routes around
+                    Gulmarg.</p>
+            </div>
+            <div class="experience-box">
+                <h3>Alpine Skiing</h3>
+                <p>From December to March, Gulmarg transforms into world-class ski terrain served by one of the highest
+                    gondolas on earth.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Itinerary Section -->
+    <section id="itinerary">
+        <div class="section-header">
+            <h2>A Three-Day Baseline Route</h2>
+            <p>An ideal baseline route starting from Srinagar. Fully customizable through our route builder.</p>
+        </div>
+        <div class="itinerary-container">
+            <div class="itinerary-day" data-day="Day 01">
+                <h3>Srinagar and Dal Lake</h3>
+                <ul>
+                    <li>Sunrise shikara ride across mirror-flat waters</li>
+                    <li>Guided tour of Shalimar Bagh and Nishat Bagh</li>
+                    <li>Late afternoon walk along Boulevard Road</li>
+                </ul>
+            </div>
+            <div class="itinerary-day" data-day="Day 02">
+                <h3>Gulmarg Alpine Meadows</h3>
+                <ul>
+                    <li>Morning scenic drive through pine forests to Gulmarg</li>
+                    <li>Gondola ascent towards Apharwat Peak</li>
+                    <li>Evening return to Srinagar before twilight</li>
+                </ul>
+            </div>
+            <div class="itinerary-day" data-day="Day 03">
+                <h3>Sonamarg & Glacial Valleys</h3>
+                <ul>
+                    <li>Drive along the roaring Sindh River valley</li>
+                    <li>Hike across alpine meadows toward Thajiwas Glacier</li>
+                    <li>Authentic family-run wazwan feast for dinner</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trip Cost & Package Estimator -->
+    <section id="estimator">
+        <div class="estimator-container">
+            <div>
+                <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+                    <h2>Expedition Configurator</h2>
+                    <p>Customize your itinerary parameters and calculate real-time estimated budgeting instantly.</p>
+                </div>
+                <div class="estimator-form">
+                    <div class="form-group">
+                        <label>Travel Tier</label>
+                        <select class="form-control" id="calc-tier">
+                            <option value="15000">Standard Valley Stay</option>
+                            <option value="28000" selected>Deluxe Houseboat & Alpine</option>
+                            <option value="50000">The Devil's VIP Expedition</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Number of Travelers</label>
+                        <input type="number" class="form-control" id="calc-travelers" value="2" min="1" max="20">
+                    </div>
+                    <div class="form-group">
+                        <label>Duration (Nights)</label>
+                        <input type="number" class="form-control" id="calc-nights" value="5" min="1" max="30">
+                    </div>
+                </div>
+            </div>
+            <div class="estimator-result">
+                <h3>Estimated Budget</h3>
+                <div class="price-tag" id="calc-total">₹280,000</div>
+                <p>Includes private transit, verified mountain guides, curated lodging, and daily breakfast.</p>
+                <a href="#plan" class="btn btn-primary"
+                    onclick="alert('Expedition itinerary locked. Our concierge will contact you shortly.')">Lock In This
+                    Itinerary</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cuisine & Drink Section -->
+    <section id="food">
+        <div class="section-header">
+            <h2>Food & Drink</h2>
+            <p>Kashmiri hospitality is an art form best experienced around a laden table.</p>
+        </div>
+        <div class="grid-2col">
+            <div class="feature-card">
+                <span class="sub-title">Beverage</span>
+                <h3>Kahwa</h3>
+                <p>A fragrant green tea brewed with whole cardamom, cinnamon, and saffron strands, garnished with
+                    crushed almonds. Served warm after crisp mountain air.</p>
+            </div>
+            <div class="feature-card">
+                <span class="sub-title">The Grand Feast</span>
+                <h3>Wazwan</h3>
+                <p>A multi-course banquet of complex meat preparations like rogan josh and gushtaba, traditionally
+                    served from large copper platters shared among family.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seasons Section -->
+    <section id="seasons">
+        <div class="section-header">
+            <h2>When to Go</h2>
+            <p>Each season reshapes the valley's character entirely.</p>
+        </div>
+        <div class="grid-2col">
+            <div class="feature-card">
+                <span class="sub-title">March to May</span>
+                <h3>Spring Blossom</h3>
+                <p>Orchards burst into white and pink blooms; lower valley paths turn vibrant green.</p>
+            </div>
+            <div class="feature-card">
+                <span class="sub-title">June to August</span>
+                <h3>Summer Meadows</h3>
+                <p>Peak season for high-altitude trekking, alpine wildflowers, and cool lake breezes.</p>
+            </div>
+            <div class="feature-card">
+                <span class="sub-title">September to November</span>
+                <h3>Golden Autumn</h3>
+                <p>Chinar trees turn glowing copper and amber under crisp, clear photographic skies.</p>
+            </div>
+            <div class="feature-card">
+                <span class="sub-title">December to February</span>
+                <h3>Winter Snows</h3>
+                <p>Deep powder snow blankets Gulmarg for skiing. Valley vistas turn stark and monochromatic.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div>© 2026 The Devil's Kashmir Explorer. All rights reserved.</div>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+            <a href="#">YouTube</a>
+        </div>
+    </footer>
+
+    <!-- Chat Guide Widget (Emotionally Intelligent Noor AI) -->
+    <button class="chat-launcher" id="chat-launcher">💬 Ask Noor</button>
+    <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+            <div>
+                <h4>Noor</h4>
+                <span>Senior Expedition Concierge</span>
+            </div>
+            <button class="chat-close" id="chat-close">&times;</button>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="chat-msg guide">Salaam, Janab. I am Noor, your senior concierge for The Devil's Kashmir. Whether
+                you wish to navigate our alpine sanctuaries, understand our Wazwan feasts, or customize your expedition
+                budget—I am at your service. How are you feeling about your journey today?</div>
+        </div>
+        <div class="chat-chips" id="chat-chips">
+            <span class="chat-chip" onclick="sendPreset('I am so excited to visit!')">I'm so excited!</span>
+            <span class="chat-chip" onclick="sendPreset('Is it safe and difficult to trek?')">Is it
+                safe/difficult?</span>
+            <span class="chat-chip" onclick="sendPreset('I need help planning a romantic trip')">Romantic Trip
+                Plan</span>
+            <span class="chat-chip" onclick="sendPreset('Tell me a story about Kashmir')">Tell me a story</span>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chat-input" placeholder="Share your thoughts with Noor..."
+                onkeypress="if(event.key==='Enter')sendMsg()">
+            <button onclick="sendMsg()">Send</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
